@@ -3,11 +3,14 @@ describe('File upload and download tests', () => {
 		cy.visit('https://filebin.net/');
 	});
 
-	it('Upload file and download it in Zip format', async () => {
-		await cy.get('#fileField').attachFile('fileToUpload.jpg');
-		cy.contains('It contains 1 uploaded file').should('be.visible');
+	it('Upload file and download it in Zip format', () => {
+		cy.get('#fileField').attachFile('fileToUpload.jpg');
+		//due to slow speed network co
+		cy.wait(50000);
+		cy.contains('It contains 1 uploaded file at').should('be.visible');
 		cy.contains('Download files').click();
 		cy.contains('Zip')
+			.click()
 			.invoke('attr', 'href')
 			.then((downloadLink) => {
 				const absulteLink = 'https://filebin.net/' + downloadLink;
@@ -17,10 +20,11 @@ describe('File upload and download tests', () => {
 			});
 	});
 
-	it('Upload file and download it in Tar format', async () => {
-		cy.intercept(cy.get('#fileField').attachFile('fileToUpload.jpg')).as('fileUpload');
-		cy.wait('@fileUpload');
-		cy.contains('It contains 1 uploaded file').should('be.visible');
+	it('Upload file and download it in Tar format', () => {
+		cy.get('#fileField').attachFile('fileToUpload.jpg');
+		//due to slow speed network co
+		cy.wait(50000);
+		cy.contains('It contains 1 uploaded file at').should('be.visible');
 		cy.contains('Download files').click();
 		cy.contains('Tar')
 			.invoke('attr', 'href')

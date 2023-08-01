@@ -8,4 +8,11 @@ module.exports = defineConfig({
 		},
 	},
 	projectId: 'c3gf52',
+	reporter: 'mochawesome',
+	reporterOptions: {
+		reportDir: 'cypress/results',
+		overwrite: false,
+		html: false,
+		json: true,
+	},
 });
