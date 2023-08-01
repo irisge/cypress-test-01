@@ -1,10 +1,11 @@
-const { defineConfig } = require("cypress");
+const { defineConfig } = require('cypress');
+const { downloadFile } = require('cypress-downloadfile/lib/addPlugin');
 
 module.exports = defineConfig({
-  e2e: {
-    setupNodeEvents(on, config) {
-      // implement node event listeners here
-    },
-  },
-  projectId: "c3gf52"
+	e2e: {
+		setupNodeEvents(on, config) {
+			on('task', { downloadFile });
+		},
+	},
+	projectId: 'c3gf52',
 });
